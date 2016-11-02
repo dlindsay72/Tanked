@@ -34,6 +34,7 @@ class GameScene: SKScene {
     var cameraNode: SKCameraNode!
     var currentPlayer = Player.red
     var units = [Unit]()
+    var bases = [Base]()
     
     
     override func didMove(to view: SKView) {
@@ -66,6 +67,18 @@ class GameScene: SKScene {
     
    
     func createStartingLayout() {
+        
+        for row in 0..<3 {
+            for col in 0..<3 {
+                let base = Base(imageNamed: "base")
+                base.position = CGPoint(x: -256 + (col * 256), y: -64 + (row * 256))
+                
+                base.zPosition = zPositions.base
+                bases.append(base)
+                
+                addChild(base)
+            }
+        }
         
         for i in 0..<5 {
             //create five red tanks
