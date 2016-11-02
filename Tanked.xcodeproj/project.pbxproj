@@ -63,15 +63,11 @@
 				7B84DAC81DCA4F8B00F21F09 /* Model */,
 				7B84DAC71DCA4F8600F21F09 /* View */,
 				7B84DAC61DCA4F7F00F21F09 /* Controller */,
-				7B84DAAE1DCA4EC200F21F09 /* AppDelegate.swift */,
-				7B84DAB01DCA4EC200F21F09 /* GameScene.sks */,
 				7B84DAB41DCA4EC200F21F09 /* GameScene.swift */,
-				7B84DAB61DCA4EC200F21F09 /* GameViewController.swift */,
 				7B84DAB81DCA4EC200F21F09 /* Main.storyboard */,
 				7B84DABB1DCA4EC200F21F09 /* Assets.xcassets */,
 				7B84DABD1DCA4EC200F21F09 /* LaunchScreen.storyboard */,
 				7B84DAC01DCA4EC200F21F09 /* Info.plist */,
-				7B84DAC91DCA4FD500F21F09 /* TileSet.sks */,
 			);
 			path = Tanked;
 			sourceTree = "<group>";
@@ -79,6 +75,8 @@
 		7B84DAC61DCA4F7F00F21F09 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				7B84DAB61DCA4EC200F21F09 /* GameViewController.swift */,
+				7B84DAAE1DCA4EC200F21F09 /* AppDelegate.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -86,6 +84,7 @@
 		7B84DAC71DCA4F8600F21F09 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				7B84DAB01DCA4EC200F21F09 /* GameScene.sks */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -93,6 +92,7 @@
 		7B84DAC81DCA4F8B00F21F09 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				7B84DAC91DCA4FD500F21F09 /* TileSet.sks */,
 			);
 			name = Model;
 			sourceTree = "<group>";
