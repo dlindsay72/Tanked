@@ -18,6 +18,7 @@
 		7B84DABC1DCA4EC200F21F09 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7B84DABB1DCA4EC200F21F09 /* Assets.xcassets */; };
 		7B84DABF1DCA4EC200F21F09 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B84DABD1DCA4EC200F21F09 /* LaunchScreen.storyboard */; };
 		7B84DACA1DCA4FD500F21F09 /* TileSet.sks in Resources */ = {isa = PBXBuildFile; fileRef = 7B84DAC91DCA4FD500F21F09 /* TileSet.sks */; };
+		7BA444CF1DCA913200141A0A /* CGPoint+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA444CE1DCA913200141A0A /* CGPoint+Additions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		7B84DABE1DCA4EC200F21F09 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7B84DAC01DCA4EC200F21F09 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7B84DAC91DCA4FD500F21F09 /* TileSet.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = TileSet.sks; sourceTree = "<group>"; };
+		7BA444CE1DCA913200141A0A /* CGPoint+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGPoint+Additions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +104,7 @@
 				7B78DEC41DCA666B005F7443 /* GameItem.swift */,
 				7B78DEC61DCA669D005F7443 /* Unit.swift */,
 				7B78DEC81DCA66B0005F7443 /* Base.swift */,
+				7BA444CE1DCA913200141A0A /* CGPoint+Additions.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -184,6 +187,7 @@
 				7B78DEC91DCA66B0005F7443 /* Base.swift in Sources */,
 				7B78DEC71DCA669D005F7443 /* Unit.swift in Sources */,
 				7B84DAB51DCA4EC200F21F09 /* GameScene.swift in Sources */,
+				7BA444CF1DCA913200141A0A /* CGPoint+Additions.swift in Sources */,
 				7B84DAB71DCA4EC200F21F09 /* GameViewController.swift in Sources */,
 				7B78DEC51DCA666B005F7443 /* GameItem.swift in Sources */,
 				7B84DAAF1DCA4EC200F21F09 /* AppDelegate.swift in Sources */,

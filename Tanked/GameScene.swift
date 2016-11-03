@@ -35,6 +35,7 @@ class GameScene: SKScene {
     var currentPlayer = Player.red
     var units = [Unit]()
     var bases = [Base]()
+    var selectedItem: GameItem?
     
     
     override func didMove(to view: SKView) {
@@ -50,6 +51,19 @@ class GameScene: SKScene {
         lastTouch = touch.location(in: self.view)
         
         originalTouch = lastTouch
+    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
+        guard let touch = touches.first else { return }
+        
+        touchesMoved(touches, with: event)
+        
+        let distance = originalTouch.manhattanDistance(to: lastTouch)
+        
+        if distance < 44 {
+            nodesTapped(at: touch.location(in: self))
+        }
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -115,6 +129,64 @@ class GameScene: SKScene {
             units.append(unit)
             
             addChild(unit)
+        }
+        
+       
+    }
+    
+    func nodesTapped(at point: CGPoint) {
+        
+        let tappedNodes = nodes(at: point)
+        var tappedMove: SKNode!
+        var tappedUnit: Unit!
+        var tappedBase: Base!
+        
+        for node in tappedNodes {
+            
+            if node is Unit {
+                
+                tappedUnit = node as! Unit
+                
+            } else if node is Base {
+                
+                tappedBase = node as! Base
+                
+            } else if node.name == "move" {
+                
+                tappedMove = node
+            }
+        }
+        
+        if tappedMove != nil {
+            //move or attack
+            
+        } else if tappedUnit != nil {
+            
+            //user tapped a unit
+            if selectedItem != nil && tappedUnit == selectedItem {
+                
+                //it was already selected, so deselect it
+                selectedItem = nil
+            } else {
+                
+                // don't let us control enemy units or dead units
+                if tappedUnit.owner == currentPlayer && tappedUnit.isAlive {
+                    
+                    selectedItem = tappedUnit
+                }
+            }
+        } else if tappedBase != nil {
+            
+            //user tapped a base
+            if tappedBase.owner == currentPlayer {
+                
+                //and it's theirs - select it
+                selectedItem = tappedBase
+            }
+        } else {
+            
+            //user tapped something else
+            selectedItem = nil
         }
     }
     

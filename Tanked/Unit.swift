@@ -10,5 +10,9 @@ import UIKit
 import SpriteKit
 
 class Unit: GameItem {
+    
+    var isAlive = true
+    var hasMoved = false
+    var hasFired = false
 
 }
