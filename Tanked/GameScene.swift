@@ -161,6 +161,8 @@ class GameScene: SKScene {
     
     func nodesTapped(at point: CGPoint) {
         
+        
+        
         let tappedNodes = nodes(at: point)
         var tappedMove: SKNode!
         var tappedUnit: Unit!
@@ -184,6 +186,17 @@ class GameScene: SKScene {
         
         if tappedMove != nil {
             //move or attack
+            guard let selectedUnit = selectedItem as? Unit else { return }
+            
+            let tappedUnits = units.itemsAt(position: tappedMove.position)
+            
+            if tappedUnits.count == 0 {
+                selectedUnit.move(to: tappedMove)
+            } else {
+                selectedUnit.attack(target: tappedUnits[0])
+            }
+            
+            selectedItem = nil
             
         } else if tappedUnit != nil {
             
