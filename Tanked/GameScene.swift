@@ -19,7 +19,7 @@ enum zPositions {
     static let unit: CGFloat = 30
     static let smoke: CGFloat = 40
     static let fire: CGFloat = 50
-    static let selectionmarker: CGFloat = 60
+    static let selectionMarker: CGFloat = 60
     static let menuBar: CGFloat = 70
 }
 
@@ -35,13 +35,27 @@ class GameScene: SKScene {
     var currentPlayer = Player.red
     var units = [Unit]()
     var bases = [Base]()
-    var selectedItem: GameItem?
+    
+    var selectedItem: GameItem? {
+        didSet {
+            selectedItemChanged()
+        }
+    }
+    
+    var selectionMarker: SKSpriteNode!
     
     
     override func didMove(to view: SKView) {
         
         cameraNode = camera!
         createStartingLayout()
+        
+        selectionMarker = SKSpriteNode(imageNamed: "selectionMarker")
+        selectionMarker.zPosition = zPositions.selectionMarker
+        
+        addChild(selectionMarker)
+        
+        hideSelectionMarker()
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -190,6 +204,35 @@ class GameScene: SKScene {
         }
     }
     
+    func showSelectionMarker() {
+        
+        guard let item = selectedItem else { return }
+        
+        selectionMarker.removeAllActions()
+        
+        selectionMarker.position = item.position
+        selectionMarker.alpha = 1
+        
+        let rotate = SKAction.rotate(byAngle: -CGFloat.pi, duration: 1)
+        let repeatForever = SKAction.repeatForever(rotate)
+        
+        selectionMarker.run(repeatForever)
+    }
+    
+    func hideSelectionMarker() {
+        
+        selectionMarker.removeAllActions()
+        selectionMarker.alpha = 0
+    }
+    
+    func selectedItemChanged() {
+        
+        if let item = selectedItem {
+            showSelectionMarker()
+        } else {
+            hideSelectionMarker()
+        }
+    }
     
 }
 
