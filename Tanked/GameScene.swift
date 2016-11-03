@@ -35,7 +35,6 @@ class GameScene: SKScene {
     var currentPlayer = Player.red
     var units = [Unit]()
     var bases = [Base]()
-    
     var selectedItem: GameItem? {
         didSet {
             selectedItemChanged()
@@ -43,9 +42,21 @@ class GameScene: SKScene {
     }
     
     var selectionMarker: SKSpriteNode!
+    var moveSquares = [SKSpriteNode]()
     
     
     override func didMove(to view: SKView) {
+        
+        for _ in 0..<41 {
+            
+            let moveSquare = SKSpriteNode(color: UIColor.white, size: CGSize(width: 64, height: 64))
+            
+            moveSquare.alpha = 0
+            moveSquare.name = "move"
+            moveSquares.append(moveSquare)
+            
+            addChild(moveSquare)
+        }
         
         cameraNode = camera!
         createStartingLayout()
@@ -227,12 +238,83 @@ class GameScene: SKScene {
     
     func selectedItemChanged() {
         
+        hideMoveOptions()
+        
         if let item = selectedItem {
+            
             showSelectionMarker()
+            
+            if selectedItem is Unit {
+                
+                showMoveOptions()
+            }
         } else {
             hideSelectionMarker()
         }
     }
+    
+    func hideMoveOptions() {
+        
+        moveSquares.forEach {
+            
+            $0.alpha = 0
+        }
+    }
+    
+    func showMoveOptions() {
+        
+        guard let selectedUnit = selectedItem as? Unit else { return }
+        
+        var counter = 0
+        
+        //loop from 5 squares to the left and right, bottom to top
+        for row in -5..<5 {
+            for col in -5..<5 {
+                //only allow moves that are 4 or fewer spaces
+                let distance = abs(col) + abs(row)
+                
+                guard distance <= 4 else { continue }
+                
+                //calculate the map position for this square, then see which items are there
+                
+                let squarePosition = CGPoint(x: selectedUnit.position.x + CGFloat(col * 64), y: selectedUnit.position.y + CGFloat(row * 64))
+                let currentUnits = units.itemsAt(position: squarePosition)
+                
+                var isAttack = false
+                
+                if currentUnits.count > 0 {
+                    if currentUnits[0].owner == currentPlayer || currentUnits[0].isAlive == false {
+                        //if there is a unit there and it's ours or dead, ignore this move
+                        continue
+                    } else {
+                        // if there's any other unit there, this is an attack
+                        isAttack = true
+                    }
+                }
+                // if this is an attack, and we haven't already fired, color the square red
+                if isAttack {
+                    
+                    guard selectedUnit.hasFired == false else { continue }
+                    
+                    moveSquares[counter].color = UIColor.red
+                } else {
+                    // if this is a move and we haven't already moved, color the square white
+                    guard selectedUnit.hasMoved == false else { continue }
+                    
+                    moveSquares[counter].color = UIColor.white
+                }
+                
+                //position the square, make it partially visible, then add 1 to the counter so the next move square is used
+                moveSquares[counter].position = squarePosition
+                moveSquares[counter].alpha = 0.35
+                
+                counter += 1
+                
+            }
+        }
+    }
+    
+    
     
 }
 

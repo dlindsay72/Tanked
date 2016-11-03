@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7B78C2091DCBBFA300226F75 /* Array+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B78C2081DCBBFA300226F75 /* Array+Additions.swift */; };
 		7B78DEC51DCA666B005F7443 /* GameItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B78DEC41DCA666B005F7443 /* GameItem.swift */; };
 		7B78DEC71DCA669D005F7443 /* Unit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B78DEC61DCA669D005F7443 /* Unit.swift */; };
 		7B78DEC91DCA66B0005F7443 /* Base.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B78DEC81DCA66B0005F7443 /* Base.swift */; };
@@ -22,6 +23,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7B78C2081DCBBFA300226F75 /* Array+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Additions.swift"; sourceTree = "<group>"; };
 		7B78DEC41DCA666B005F7443 /* GameItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameItem.swift; sourceTree = "<group>"; };
 		7B78DEC61DCA669D005F7443 /* Unit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Unit.swift; sourceTree = "<group>"; };
 		7B78DEC81DCA66B0005F7443 /* Base.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Base.swift; sourceTree = "<group>"; };
@@ -105,6 +107,7 @@
 				7B78DEC61DCA669D005F7443 /* Unit.swift */,
 				7B78DEC81DCA66B0005F7443 /* Base.swift */,
 				7BA444CE1DCA913200141A0A /* CGPoint+Additions.swift */,
+				7B78C2081DCBBFA300226F75 /* Array+Additions.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -185,6 +188,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7B78DEC91DCA66B0005F7443 /* Base.swift in Sources */,
+				7B78C2091DCBBFA300226F75 /* Array+Additions.swift in Sources */,
 				7B78DEC71DCA669D005F7443 /* Unit.swift in Sources */,
 				7B84DAB51DCA4EC200F21F09 /* GameScene.swift in Sources */,
 				7BA444CF1DCA913200141A0A /* CGPoint+Additions.swift in Sources */,
