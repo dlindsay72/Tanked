@@ -145,7 +145,7 @@ class GameScene: SKScene {
             
             unit.owner = .blue
             
-            unit.position = CGPoint(x: -128 + (i * 64), y: 704)
+            unit.position = CGPoint(x: -128 + (i * 64), y: -128)
             
             unit.zPosition = zPositions.unit
             
