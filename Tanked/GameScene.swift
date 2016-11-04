@@ -44,6 +44,12 @@ class GameScene: SKScene {
     var selectionMarker: SKSpriteNode!
     var moveSquares = [SKSpriteNode]()
     
+    var menuBar: SKSpriteNode!
+    var menuBarPlayer: SKSpriteNode!
+    var menuBarEndTurn: SKSpriteNode!
+    var menuBarCapture: SKSpriteNode!
+    var menuBarBuild: SKSpriteNode!
+    
     
     override func didMove(to view: SKView) {
         
@@ -67,6 +73,7 @@ class GameScene: SKScene {
         addChild(selectionMarker)
         
         hideSelectionMarker()
+        createMenuBar()
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -250,18 +257,34 @@ class GameScene: SKScene {
     }
     
     func selectedItemChanged() {
-        
+        //hide all buttons by default
         hideMoveOptions()
+        hideBuildMenu()
+        hideCaptureMenu()
         
         if let item = selectedItem {
-            
+            //something was selected, show the selection marker
             showSelectionMarker()
             
             if selectedItem is Unit {
-                
+                //it was a unit, let the user choose where to move
                 showMoveOptions()
+                //get the list of bases at this items position
+                let currentBases = bases.itemsAt(position: item.position)
+                
+                if currentBases.count > 0 {
+                    //we found a base we didn't already own
+                    if currentBases[0].owner != currentPlayer {
+                        
+                        showCaptureMenu()
+                    }
+                }
+            } else {
+                showBuildMenu()
             }
+            
         } else {
+            //nothing was selected
             hideSelectionMarker()
         }
     }
@@ -325,6 +348,59 @@ class GameScene: SKScene {
                 
             }
         }
+    }
+    
+    func createMenuBar() {
+        //create a translucent black menu bar, positioned near the top
+        menuBar = SKSpriteNode(color: UIColor(white: 0, alpha: 0.65), size: CGSize(width: 1024, height: 60))
+        
+        menuBar.position = CGPoint(x: 0, y: 354)
+        menuBar.zPosition = zPositions.menuBar
+        cameraNode.addChild(menuBar)
+        
+        //add the "Red's Turn" sprite to the top left corner
+        menuBarPlayer = SKSpriteNode(imageNamed: "red")
+        menuBarPlayer.anchorPoint = CGPoint(x: 0, y: 0.5)
+        menuBarPlayer.position = CGPoint(x: -512 + 20, y: 0)
+        menuBar.addChild(menuBarPlayer)
+        
+        //add the red "End Turn" sprite to the top right corner
+        menuBarEndTurn = SKSpriteNode(imageNamed: "redEndTurn")
+        menuBarEndTurn.anchorPoint = CGPoint(x: 1, y: 0.5)
+        menuBarEndTurn.position = CGPoint(x: 512 - 20, y: 0)
+        menuBarEndTurn.name = "endturn"
+        menuBar.addChild(menuBarEndTurn)
+        
+        //add the "Capture" button to the center of the menu bar
+        menuBarCapture = SKSpriteNode(imageNamed: "capture")
+        menuBarCapture.position = CGPoint(x: 0, y: 0)
+        menuBarCapture.name = "capture"
+        menuBar.addChild(menuBarCapture)
+        hideCaptureMenu()
+        
+        //add the "Build" button tot he center of the menu bar
+        menuBarBuild = SKSpriteNode(imageNamed: "build")
+        menuBarBuild.position = CGPoint(x: 0, y: 0)
+        menuBarBuild.name = "build"
+        menuBar.addChild(menuBarBuild)
+        hideBuildMenu()
+        
+    }
+    
+    func hideCaptureMenu() {
+        menuBarCapture.alpha = 0
+    }
+    
+    func showCaptureMenu() {
+        menuBarCapture.alpha = 1
+    }
+    
+    func hideBuildMenu() {
+        menuBarBuild.alpha = 0
+    }
+    
+    func showBuildMenu() {
+        menuBarBuild.alpha = 1
     }
     
     
