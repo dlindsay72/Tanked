@@ -188,6 +188,24 @@ class GameScene: SKScene {
             } else if node.name == "move" {
                 
                 tappedMove = node
+            } else if node.name == "endturn" {
+                endTurn()
+                return
+            } else if node.name == "capture" {
+                captureBase()
+                return
+            } else if node.name == "build" {
+                
+                guard let selectedBase = selectedItem as? Base else { return }
+                
+                if let unit = selectedBase.buildUnit() {
+                    //we got a new unit back!
+                    units.append(unit)
+                    addChild(unit)
+                }
+                
+                selectedItem = nil
+                return
             }
         }
         
@@ -403,7 +421,50 @@ class GameScene: SKScene {
         menuBarBuild.alpha = 1
     }
     
+    func endTurn() {
+        
+        if currentPlayer == .red {
+            //switch the controlling player
+            currentPlayer = .blue
+            //update the 2 textures
+            menuBarEndTurn.texture = SKTexture(imageNamed: "blueEndTurn")
+            
+            let setTexture = SKAction.setTexture(SKTexture(imageNamed: "blue"), resize: true)
+            
+            menuBarPlayer.run(setTexture)
+        } else {
+            currentPlayer = .red
+            menuBarEndTurn.texture = SKTexture(imageNamed: "redEndTurn")
+            
+            let setTexture = SKAction.setTexture(SKTexture(imageNamed: "red"), resize: true)
+            menuBarPlayer.run(setTexture)
+        }
+        //resize all bases and units
+        bases.forEach { $0.reset() }
+        units.forEach { $0.reset() }
+        
+        //remove any dead units
+        units = units.filter { $0.isAlive }
+        //clear whatever was selected
+        selectedItem = nil
+    }
     
+    func captureBase() {
+        
+        guard let item = selectedItem else { return }
+        
+        let currentBases = bases.itemsAt(position: item.position)
+        
+        //if we have a base here...
+        if currentBases.count > 0 {
+            //...and it's not owned by us already
+            if currentBases[0].owner != currentPlayer {
+                //capture it!
+                currentBases[0].setOwner(currentPlayer)
+                selectedItem = nil
+            }
+        }
+    }
     
 }
 

@@ -145,6 +145,21 @@ class Unit: GameItem {
     func takeDamage() {
         health -= 1
     }
+    
+    func reset() {
+        
+        if isAlive == true {
+            
+            hasFired = false
+            hasMoved = false
+        } else {
+            
+            let fadeAway = SKAction.fadeOut(withDuration: 0.5)
+            let sequence = [fadeAway, SKAction.removeFromParent()]
+            
+            run(SKAction.sequence(sequence))
+        }
+    }
 
 }
 
